@@ -31,4 +31,4 @@ build/
 .vscode/
 
 ### h2 ###
-testdb.mv.db
+testdb.*.db

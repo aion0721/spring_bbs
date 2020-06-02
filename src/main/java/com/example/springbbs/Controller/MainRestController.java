@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.springbbs.Service.ItemService;
 import com.example.springbbs.Domain.Item;
@@ -23,6 +24,11 @@ public class MainRestController {
     @GetMapping("list")
     public List<Item> list(@ModelAttribute Item item) {
         return itemService.findAll();
+    }
+
+    @GetMapping("{parentsId}")
+    public List<Item> findByParentsId(@PathVariable("parentsId") Long parentsId) {
+        return itemService.findByParentsId(parentsId);
     }
 
     @PostMapping("add")
