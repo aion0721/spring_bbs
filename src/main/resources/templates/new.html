@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="common :: meta_header('Sysgrps/new',~{::link},~{::script})">
+  <head>
+    <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link th:href="@{/css/common.css}" rel="stylesheet" />
     <!-- Custom JavaScript -->
     <script>
       $(function () {
@@ -9,19 +14,20 @@
           button.attr("disabled", true);
 
           var data = {
-            name: $("#name").val(),
+            parentsId: $("#parentsId").val(),
+            contents: $("#contents").val(),
           };
 
           $.ajax({
             type: "post",
-            url: "http://localhost:8080/api/sysgrps/create",
+            url: "http://localhost:8080/api/add",
             data: JSON.stringify(data),
             contentType: "application/json",
             dataType: "json",
           })
             .done(function (data) {
               alert("success");
-              location.href = "/sysgrps/";
+              location.href = "/";
             })
             .fail(function () {
               alert("Error has occured.");
@@ -37,18 +43,17 @@
 
   <body>
     <div class="container-fluid">
-      <div th:replace="common :: header"></div>
       <!-- ユーザーデータを以下に格納 -->
       <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" class="form-control" />
+        <label for="contents">Contents:</label>
+        <input type="text" id="contents" class="form-control" />
+        <input type="hidden" id="parentsId" class="form-control" value="0" />
       </div>
       <div class="control-grpup">
         <div class="controls">
           <button id="new" type="button">New!</button>
         </div>
       </div>
-      <div th:replace="common :: footer"></div>
     </div>
   </body>
 </html>
