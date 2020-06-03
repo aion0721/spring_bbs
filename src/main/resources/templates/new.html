@@ -6,10 +6,11 @@
       $(function () {
         $("button#new").click(function () {
           var button = $(this);
+          const parentsid = getParam("parentsid");
           button.attr("disabled", true);
 
           var data = {
-            parentsId: $("#parentsId").val(),
+            parentsId: parentsid,
             contents: $("#contents").val(),
           };
 
@@ -22,7 +23,11 @@
           })
             .done(function (data) {
               alert("success");
-              location.href = "/";
+              if (parentsid === "0") {
+                location.href = "/";
+              } else {
+                location.href = "/items?id=" + parentsid;
+              }
             })
             .fail(function () {
               alert("Error has occured.");
@@ -43,7 +48,6 @@
       <div class="form-group">
         <label for="contents">Contents:</label>
         <input type="text" id="contents" class="form-control" />
-        <input type="hidden" id="parentsId" class="form-control" value="0" />
       </div>
       <div class="control-grpup">
         <div class="controls">
