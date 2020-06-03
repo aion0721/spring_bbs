@@ -24,6 +24,12 @@ public class ItemService {
         return items;
     }
 
+    public List<Item> findById(Long id) {
+        String query = "SELECT * FROM item WHERE id ='" + id + "'";
+        List<Item> items = jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Item.class));
+        return items;
+    }
+
     public List<Item> findByParentsId(Long parentsId) {
         String query = "SELECT * FROM item WHERE parents_id ='" + parentsId + "'";
         List<Item> items = jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Item.class));

@@ -26,7 +26,12 @@ public class MainRestController {
         return itemService.findAll();
     }
 
-    @GetMapping("{parentsId}")
+    @GetMapping("/id/{id}")
+    public List<Item> findById(@PathVariable("id") Long id) {
+        return itemService.findById(id);
+    }
+
+    @GetMapping("/parentsid/{parentsId}")
     public List<Item> findByParentsId(@PathVariable("parentsId") Long parentsId) {
         return itemService.findByParentsId(parentsId);
     }
