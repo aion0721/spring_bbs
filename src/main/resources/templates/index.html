@@ -10,7 +10,7 @@
           console.log(data);
           for (var i = 0; i < data.length; i++) {
             console.log("id : " + data[i].id);
-            console.log("name : " + data[i].contents);
+            console.log("contents : " + data[i].contents);
             $("#sysgrptbl").append(
               $("<tr></tr>")
                 .append($("<td></td>").text(data[i].id))
@@ -31,7 +31,7 @@
     <div class="container-fluid">
       <div th:replace="common :: header"></div>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active">Sysgrps</li>
+        <li class="breadcrumb-item active">Index</li>
       </ol>
 
       <!-- ユーザーデータを以下に格納 -->
