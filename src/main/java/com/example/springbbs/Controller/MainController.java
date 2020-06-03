@@ -8,8 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class MainController {
     @GetMapping
-    public String index(){
+    public String index() {
         return "index";
+    }
+
+    @GetMapping("/new")
+    public String create() {
+        return "new";
+    }
+
+    @GetMapping("/items")
+    public String items() {
+        return "items";
+
     }
 
 }

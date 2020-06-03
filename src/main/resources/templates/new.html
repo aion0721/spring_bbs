@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="common :: meta_header('New',~{::link},~{::script})">
+    <!-- Custom JavaScript -->
+    <script>
+      $(function () {
+        $("button#new").click(function () {
+          var button = $(this);
+          const parentsid = getParam("parentsid");
+          button.attr("disabled", true);
+
+          var data = {
+            parentsId: parentsid,
+            contents: $("#contents").val(),
+          };
+
+          $.ajax({
+            type: "post",
+            url: "http://localhost:8080/api/add",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: "json",
+          })
+            .done(function (data) {
+              alert("success");
+              if (parentsid === "0") {
+                location.href = "/";
+              } else {
+                location.href = "/items?id=" + parentsid;
+              }
+            })
+            .fail(function () {
+              alert("Error has occured.");
+            })
+            .then(function () {
+              console.log();
+              button.attr("disabled", false);
+            });
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div th:replace="common :: header"></div>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="./">Index</a></li>
+        <li class="breadcrumb-item active">New</li>
+      </ol>
+      <!-- ユーザーデータを以下に格納 -->
+      <div class="form-group">
+        <label for="contents">Contents:</label>
+        <input type="text" id="contents" class="form-control" />
+      </div>
+      <div class="control-grpup">
+        <div class="controls">
+          <button id="new" type="button">New!</button>
+        </div>
+      </div>
+      <div th:replace="common :: footer"></div>
+    </div>
+  </body>
+</html>

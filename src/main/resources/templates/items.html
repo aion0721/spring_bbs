@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="common :: meta_header('Index',~{::link},~{::script})">
+  <head th:replace="common :: meta_header('Posts',~{::link},~{::script})">
     <script>
+      function goNewpage() {
+        location.href = "/new?parentsid=" + getParam("id");
+      }
       $(document).ready(function () {
+        const id = getParam("id");
         $.ajax({
-          url: "http://localhost:8080/api/parentsid/0",
+          url: "http://localhost:8080/api/id/" + id,
         }).then(function (data) {
           // for debug
           console.log(data);
@@ -17,7 +21,28 @@
                 .append($("<td></td>").text(data[i].contents))
                 .append(
                   $("<td></td>").html(
-                    "<a href=/items?id=" + data[i].id + ">Links</a>"
+                    "<a href=/sysgrps/" + data[i].id + "/servers>Links</a>"
+                  )
+                )
+                .append($("<td></td>").html())
+            );
+          }
+        });
+        $.ajax({
+          url: "http://localhost:8080/api/parentsid/" + id,
+        }).then(function (data) {
+          // for debug
+          console.log(data);
+          for (var i = 0; i < data.length; i++) {
+            console.log("id : " + data[i].id);
+            console.log("contents : " + data[i].contents);
+            $("#sysgrptbl").append(
+              $("<tr></tr>")
+                .append($("<td></td>").text(data[i].id))
+                .append($("<td></td>").text(data[i].contents))
+                .append(
+                  $("<td></td>").html(
+                    "<a href=/sysgrps/" + data[i].id + "/servers>Links</a>"
                   )
                 )
                 .append($("<td></td>").html())
@@ -31,7 +56,8 @@
     <div class="container-fluid">
       <div th:replace="common :: header"></div>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active">Index</li>
+        <li class="breadcrumb-item"><a href="./">Index</a></li>
+        <li class="breadcrumb-item active">Posts</li>
       </ol>
 
       <!-- ユーザーデータを以下に格納 -->
@@ -52,7 +78,7 @@
         </thead>
         <tbody></tbody>
       </table>
-      <button onclick="location.href='/new?parentsid=0'">New!</button>
+      <button onclick="goNewpage()">New!</button>
       <div th:replace="common :: footer"></div>
     </div>
   </body>
