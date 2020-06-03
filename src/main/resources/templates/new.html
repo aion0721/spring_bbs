@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="common :: meta_header('Sysgrps/new',~{::link},~{::script})">
+    <!-- Custom JavaScript -->
+    <script>
+      $(function () {
+        $("button#new").click(function () {
+          var button = $(this);
+          button.attr("disabled", true);
+
+          var data = {
+            name: $("#name").val(),
+          };
+
+          $.ajax({
+            type: "post",
+            url: "http://localhost:8080/api/sysgrps/create",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: "json",
+          })
+            .done(function (data) {
+              alert("success");
+              location.href = "/sysgrps/";
+            })
+            .fail(function () {
+              alert("Error has occured.");
+            })
+            .then(function () {
+              console.log();
+              button.attr("disabled", false);
+            });
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div th:replace="common :: header"></div>
+      <!-- ユーザーデータを以下に格納 -->
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" class="form-control" />
+      </div>
+      <div class="control-grpup">
+        <div class="controls">
+          <button id="new" type="button">New!</button>
+        </div>
+      </div>
+      <div th:replace="common :: footer"></div>
+    </div>
+  </body>
+</html>
