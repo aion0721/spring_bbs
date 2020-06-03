@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:fragment="meta_header(title,links,scripts)">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link th:href="@{/css/common.css}" rel="stylesheet" />
+    <script>
+      function getParam(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return "";
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+    </script>
+
+    <title th:text="${title}+' | sample app'">Each Title | Infdoc</title>
+
+    <th:block th:replace="${links} ?: _" />
+    <th:blosk th:replace="${scripts} ?: _" />
+  </head>
+  <body>
+    <header th:fragment="header">
+      <nav class="navbar navbar-dark bg-primary sticky-top">
+        <h1><a th:href="@{'/'}" class="navbar-brand">SampleApp</a></h1>
+      </nav>
+    </header>
+    <footer th:fragment="footer">
+      <h1>Footer</h1>
+    </footer>
+  </body>
+</html>

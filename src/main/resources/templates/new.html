@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
-    <script th:src="@{/js/bootstrap.js}"></script>
-    <script th:src="@{/js/common.js}"></script>
-    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
-    <link th:href="@{/css/common.css}" rel="stylesheet" />
+  <head th:replace="common :: meta_header('Index',~{::link},~{::script})">
     <!-- Custom JavaScript -->
     <script>
       $(function () {
@@ -43,6 +38,7 @@
 
   <body>
     <div class="container-fluid">
+      <div th:replace="common :: header"></div>
       <!-- ユーザーデータを以下に格納 -->
       <div class="form-group">
         <label for="contents">Contents:</label>
@@ -54,6 +50,7 @@
           <button id="new" type="button">New!</button>
         </div>
       </div>
+      <div th:replace="common :: footer"></div>
     </div>
   </body>
 </html>

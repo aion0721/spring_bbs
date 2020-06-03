@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
-    <script th:src="@{/js/bootstrap.js}"></script>
-    <script th:src="@{/js/common.js}"></script>
-    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
-    <link th:href="@{/css/common.css}" rel="stylesheet" />
+  <head th:replace="common :: meta_header('Index',~{::link},~{::script})">
     <script>
       $(document).ready(function () {
         $.ajax({
@@ -31,35 +26,10 @@
         });
       });
     </script>
-    <!-- Custom JavaScript -->
-    <script>
-      // fetch("http://localhost:8080/sysgrps/list")
-      //   .then((response) => {
-      //     if (!response.ok) {
-      //       throw new Error();
-      //     }
-      //     return response.json();
-      //   })
-      //   .then((json) => {
-      //     console.log(json);
-      //     var parentDiv = document.getElementById("sysgrp");
-      //     for (var i = 0; i < json.length; i++) {
-      //       var newElement = document.createElement("p");
-      //       var newContent = Document.createTextNode(
-      //         json[i].id + "," + json[i].name + "\n"
-      //       );
-      //       newElement.appendChild(newContent);
-      //       newElement.setAttribute("id", "child" + i);
-      //       parentDiv.insertBefore(newElement, null);
-      //     }
-      //   })
-      //   .catch((reason) => {
-      //     console.log(reason);
-      //   });
-    </script>
   </head>
   <body>
     <div class="container-fluid">
+      <div th:replace="common :: header"></div>
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">Sysgrps</li>
       </ol>
@@ -83,6 +53,7 @@
         <tbody></tbody>
       </table>
       <button onclick="location.href='/new'">New!</button>
+      <div th:replace="common :: footer"></div>
     </div>
   </body>
 </html>
