@@ -17,4 +17,10 @@ public class MainController {
         return "new";
     }
 
+    @GetMapping("/items")
+    public String items() {
+        return "items";
+
+    }
+
 }

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link th:href="@{/css/common.css}" rel="stylesheet" />
+    <script>
+      function getParam(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return "";
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+      $(document).ready(function () {
+        $.ajax({
+          url: "http://localhost:8080/api/0",
+        }).then(function (data) {
+          // for debug
+          console.log(data);
+          for (var i = 0; i < data.length; i++) {
+            console.log("id : " + data[i].id);
+            console.log("name : " + data[i].name);
+            $("#sysgrptbl").append(
+              $("<tr></tr>")
+                .append($("<td></td>").text(data[i].id))
+                .append($("<td></td>").text(data[i].contents))
+                .append(
+                  $("<td></td>").html(
+                    "<a href=/sysgrps/" + data[i].id + "/servers>Links</a>"
+                  )
+                )
+                .append($("<td></td>").html())
+            );
+          }
+        });
+      });
+    </script>
+    <!-- Custom JavaScript -->
+    <script>
+      // fetch("http://localhost:8080/sysgrps/list")
+      //   .then((response) => {
+      //     if (!response.ok) {
+      //       throw new Error();
+      //     }
+      //     return response.json();
+      //   })
+      //   .then((json) => {
+      //     console.log(json);
+      //     var parentDiv = document.getElementById("sysgrp");
+      //     for (var i = 0; i < json.length; i++) {
+      //       var newElement = document.createElement("p");
+      //       var newContent = Document.createTextNode(
+      //         json[i].id + "," + json[i].name + "\n"
+      //       );
+      //       newElement.appendChild(newContent);
+      //       newElement.setAttribute("id", "child" + i);
+      //       parentDiv.insertBefore(newElement, null);
+      //     }
+      //   })
+      //   .catch((reason) => {
+      //     console.log(reason);
+      //   });
+    </script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Sysgrps</li>
+      </ol>
+
+      <!-- ユーザーデータを以下に格納 -->
+      <div id="sysgrp"></div>
+      <table class="table table-hover" id="sysgrptbl">
+        <thead>
+          <tr>
+            <th>
+              Number
+            </th>
+            <th>
+              contents
+            </th>
+            <th>
+              Links
+            </th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button onclick="location.href='/new'">New!</button>
+    </div>
+  </body>
+</html>
