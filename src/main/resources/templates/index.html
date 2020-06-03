@@ -9,13 +9,13 @@
     <script>
       $(document).ready(function () {
         $.ajax({
-          url: "http://localhost:8080/api/0",
+          url: "http://localhost:8080/api/parentsid/0",
         }).then(function (data) {
           // for debug
           console.log(data);
           for (var i = 0; i < data.length; i++) {
             console.log("id : " + data[i].id);
-            console.log("name : " + data[i].name);
+            console.log("name : " + data[i].contents);
             $("#sysgrptbl").append(
               $("<tr></tr>")
                 .append($("<td></td>").text(data[i].id))

@@ -17,12 +17,33 @@
         return decodeURIComponent(results[2].replace(/\+/g, " "));
       }
       $(document).ready(function () {
+        const id = getParam("id");
         $.ajax({
-          url: "http://localhost:8080/api/0",
+          url: "http://localhost:8080/api/id/" + id,
         }).then(function (data) {
           // for debug
           console.log(data);
-          console.log(getParam("id"));
+          for (var i = 0; i < data.length; i++) {
+            console.log("id : " + data[i].id);
+            console.log("name : " + data[i].name);
+            $("#sysgrptbl").append(
+              $("<tr></tr>")
+                .append($("<td></td>").text(data[i].id))
+                .append($("<td></td>").text(data[i].contents))
+                .append(
+                  $("<td></td>").html(
+                    "<a href=/sysgrps/" + data[i].id + "/servers>Links</a>"
+                  )
+                )
+                .append($("<td></td>").html())
+            );
+          }
+        });
+        $.ajax({
+          url: "http://localhost:8080/api/parentsid/" + id,
+        }).then(function (data) {
+          // for debug
+          console.log(data);
           for (var i = 0; i < data.length; i++) {
             console.log("id : " + data[i].id);
             console.log("name : " + data[i].name);
