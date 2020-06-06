@@ -7,8 +7,9 @@
       }
       $(document).ready(function () {
         const id = getParam("id");
+        const hostname = $(location).attr("host");
         $.ajax({
-          url: "http://localhost:8080/api/id/" + id,
+          url: "http://" + hostname + "/api/id/" + id,
         }).then(function (data) {
           // for debug
           console.log(data);
@@ -29,7 +30,7 @@
           }
         });
         $.ajax({
-          url: "http://localhost:8080/api/parentsid/" + id,
+          url: "http://" + hostname + "/api/parentsid/" + id,
         }).then(function (data) {
           // for debug
           console.log(data);
